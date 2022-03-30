@@ -58,6 +58,12 @@ namespace ContactsApp.UnitTests
 
              //Assert
             Assert.AreEqual(expectedProject.Contacts.Count, actualProject.Contacts.Count);
+            for (int i = 0; i < expectedProject.Contacts.Count; i++)
+            {
+	            var expected = expectedProject.Contacts[i];
+	            var actual = actualProject.Contacts[i];
+	            Assert.AreEqual(expected, actual);
+            }
 
             Assert.Multiple(() =>
             {

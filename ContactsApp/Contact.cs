@@ -7,7 +7,7 @@ namespace ContactsApp
     /// Класс, хранящий информацию о контакте:
     /// имя, фамилия, почта, idvk
     /// </summary>
-    public class Contact : IEquatable<Contact>, IComparable<Contact>
+    public class Contact : IEquatable<Contact>, ICloneable
     {
         /// <summary>
         /// Фамилия
@@ -168,47 +168,26 @@ namespace ContactsApp
             this.PhoneNumber = number;
         }
 
+        /// <summary>
+        /// Сравнивает два объекта
+        /// </summary>
         public bool Equals(Contact other)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return _surname == other._surname 
-                   && _name == other._name 
-                   && _email == other._email 
-                   && _birthDate.Equals(other._birthDate) 
-                   && _idVK == other._idVK 
-                   && Equals(PhoneNumber, other.PhoneNumber);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == this.GetType() && Equals((Contact) obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = (_surname != null ? _surname.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (_name != null ? _name.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (_email != null ? _email.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ _birthDate.GetHashCode();
-                hashCode = (hashCode * 397) ^ (_idVK != null ? _idVK.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (PhoneNumber != null ? PhoneNumber.GetHashCode() : 0);
-                return hashCode;
-            }
+	        return _surname == other._surname 
+	               && _name == other._name 
+	               && _email == other._email 
+	               && _birthDate.Equals(other._birthDate) 
+	               && _idVK == other._idVK 
+	               && PhoneNumber.Equals(other.PhoneNumber);
         }
 
         /// <summary>
-        /// Метод для реализации интерфейса IComporable
+        /// Создает копию объекта
         /// </summary>
-        /// <param name="other"></param>
         /// <returns></returns>
-        public int CompareTo(Contact other)
+        public object Clone()
         {
-            return other == null ? 1 : String.Compare(_surname, other._surname, StringComparison.Ordinal);
+	        return new Contact(Name, Surname, Email, IdVK, BirthDate, PhoneNumber);
         }
     }
 }

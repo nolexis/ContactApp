@@ -45,9 +45,12 @@ namespace ContactsApp
                                              First.Name.ToLower().Contains(text));
         }
 
+        /// <summary>
+        /// Сравнивает два объекта
+        /// </summary>
         public bool Equals(Project other)
         {
-            return other != null && this.Contacts.Equals(other.Contacts);
+            return Contacts.SequenceEqual(other.Contacts);
         }
     }
 }
