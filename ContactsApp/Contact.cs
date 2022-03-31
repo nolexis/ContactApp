@@ -7,7 +7,7 @@ namespace ContactsApp
     /// Класс, хранящий информацию о контакте:
     /// имя, фамилия, почта, idvk
     /// </summary>
-    public class Contact : IEquatable<Contact>, ICloneable
+    public class Contact : IEquatable<Contact>, ICloneable, IComparable<Contact>
     {
         /// <summary>
         /// Фамилия
@@ -188,6 +188,18 @@ namespace ContactsApp
         public object Clone()
         {
 	        return new Contact(Name, Surname, Email, IdVK, BirthDate, PhoneNumber);
+        }
+
+        /// <summary>
+        /// Метод для реализации интерфейса IComporable
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        public int CompareTo(Contact other)
+        {
+	        return other == null 
+		        ? 1 
+		        : String.Compare(_surname, other._surname, StringComparison.Ordinal);
         }
     }
 }
