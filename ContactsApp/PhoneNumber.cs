@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ContactsApp
 {
@@ -7,6 +8,11 @@ namespace ContactsApp
     /// </summary>
     public class PhoneNumber : IEquatable<PhoneNumber>
     {
+        /// <summary>
+        /// Максимальная длина номера
+        /// </summary>
+	    private const int MaxLength = 11;
+
         /// <summary>
         /// Номер телефона
         /// </summary>
@@ -22,7 +28,7 @@ namespace ContactsApp
             get => _number;
             set
             {
-                if (value >= 70000000000 && value <= 79999999999)
+                if (value.ToString().First() == '7' && value.ToString().Length ==11)
                 {
                     _number = value;
                 }
